@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # MozhiGPT API Service
+  mozhigpt-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: mozhigpt-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=/app/models/tamil-gpt
+      - TOKENIZER_VOCAB_PATH=/app/tamil_tokenizers/tamil_vocab.json
+      - USE_CUSTOM_TOKENIZER=true
+      - MAX_NEW_TOKENS=256
+      - TEMPERATURE=0.7
+      - TOP_K=50
+      - TOP_P=0.9
+      - DEVICE=auto
+      - HOST=0.0.0.0
+      - PORT=8000
+      - WORKERS=1
+    volumes:
+      - ./models:/app/models
+      - ./tamil_tokenizers:/app/tamil_tokenizers
+      - ./data:/app/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - mozhigpt-network
+
+  # Development service with hot reload
+  mozhigpt-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    container_name: mozhigpt-dev
+    ports:
+      - "8001:8000"  # Different port for dev
+      - "8888:8888"  # Jupyter notebook
+    environment:
+      - MODEL_PATH=/app/models/tamil-gpt
+      - TOKENIZER_VOCAB_PATH=/app/tamil_tokenizers/tamil_vocab.json
+      - USE_CUSTOM_TOKENIZER=true
+      - DEVICE=auto
+      - HOST=0.0.0.0
+      - PORT=8000
+      - RELOAD=true
+    volumes:
+      - .:/app
+      - ./models:/app/models
+      - ./tamil_tokenizers:/app/tamil_tokenizers
+      - ./data:/app/data
+    networks:
+      - mozhigpt-network
+    profiles:
+      - dev
+
+  # Optional: Redis for conversation storage (production)
+  redis:
+    image: redis:7-alpine
+    container_name: mozhigpt-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - mozhigpt-network
+    profiles:
+      - redis
+
+  # Optional: Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: mozhigpt-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - mozhigpt-api
+    restart: unless-stopped
+    networks:
+      - mozhigpt-network
+    profiles:
+      - nginx
+
+volumes:
+  redis_data:
+
+networks:
+  mozhigpt-network:
+    driver: bridge

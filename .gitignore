@@ -1,0 +1,45 @@
+# Large data files
+data/
+*.jsonl
+mozhigpt.db
+
+# Model files
+models/
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+
+# Environment files
+config.env
+.env
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
