@@ -1,0 +1,160 @@
+{
+  "info": {
+    "name": "Tamil Language Model (TLM) 1.0 API",
+    "description": "Complete API collection for TLM 1.0 - Tamil Language Model",
+    "version": "1.0.0",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        },
+        "description": "Check if the TLM 1.0 API server is running and healthy"
+      },
+      "response": []
+    },
+    {
+      "name": "Root Endpoint",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/",
+          "host": ["{{base_url}}"],
+          "path": [""]
+        },
+        "description": "Get basic information about the TLM 1.0 API"
+      },
+      "response": []
+    },
+    {
+      "name": "Tamil Chat",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"வணக்கம்! நீங்கள் எப்படி இருக்கிறீர்கள்?\",\n  \"max_length\": 120,\n  \"temperature\": 0.7\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/chat",
+          "host": ["{{base_url}}"],
+          "path": ["chat"]
+        },
+        "description": "Chat with TLM in Tamil language"
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Tamil Poetry",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"theme\": \"அன்பு\",\n  \"max_length\": 150,\n  \"temperature\": 0.8\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/poetry",
+          "host": ["{{base_url}}"],
+          "path": ["poetry"]
+        },
+        "description": "Generate Tamil poetry on a given theme"
+      },
+      "response": []
+    },
+    {
+      "name": "Generate Tamil Story",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"topic\": \"பழைய காலம்\",\n  \"max_length\": 200,\n  \"temperature\": 0.8\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/story",
+          "host": ["{{base_url}}"],
+          "path": ["story"]
+        },
+        "description": "Generate Tamil story on a given topic"
+      },
+      "response": []
+    },
+    {
+      "name": "Translate English to Tamil",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"text\": \"Hello, how are you?\",\n  \"max_length\": 100,\n  \"temperature\": 0.5\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/translate",
+          "host": ["{{base_url}}"],
+          "path": ["translate"]
+        },
+        "description": "Translate English text to Tamil"
+      },
+      "response": []
+    },
+    {
+      "name": "Explain Tamil Concept",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"concept\": \"தமிழ் மொழி\",\n  \"max_length\": 150,\n  \"temperature\": 0.6\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/explain",
+          "host": ["{{base_url}}"],
+          "path": ["explain"]
+        },
+        "description": "Explain a Tamil concept or word"
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "description": "Base URL for TLM 1.0 API"
+    }
+  ]
+}

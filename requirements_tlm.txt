@@ -1,0 +1,23 @@
+# Tamil Language Model (TLM) 1.0 Requirements
+# Core ML libraries
+torch>=1.13.0
+transformers>=4.21.0
+accelerate>=0.20.0
+
+# API and web server
+fastapi>=0.95.0
+uvicorn[standard]>=0.20.0
+python-multipart>=0.0.6
+
+# Data processing
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Utilities
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+requests>=2.28.0
+tqdm>=4.64.0
+
+# Logging and monitoring
+loguru>=0.6.0
